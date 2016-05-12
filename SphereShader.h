@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   SphereShader.h
  * Author: caroline
  *
@@ -6,79 +6,79 @@
  */
 
 #ifndef SPHERESHADER_H
-#define	SPHERESHADER_H
+#define SPHERESHADER_H
 
 #include "GraphicsShader.h"
 #include <string>
 
-class SphereShader : public GraphicsShader {
+class SphereShader :
+    public GraphicsShader
+{
 public:
-    SphereShader(std::string vertexShaderFileName = "sphere.vert",
-            std::string geometryShaderFileName = "sphere.geom",
-            std::string fragmentShaderFileName = "sphere.frag");
+    SphereShader( std::string vertexShaderFileName = "sphere.vert",
+                  std::string geometryShaderFileName = "sphere.geom",
+                  std::string fragmentShaderFileName = "sphere.frag" );
 
-    SphereShader(const SphereShader& orig);
+    SphereShader( const SphereShader& orig );
 
     virtual ~SphereShader();
 
-    void setMvpMatrix(double *mvp);
+    void setMvpMatrix( double* mvp );
 
-    void setMvMatrix(double *mv);
-    
-    void setMMatrix(double *m);
-    
-    void setVMatrix(double *v);
+    void setMvMatrix( double* mv );
 
-    void setNormalMatrix(double *normal);
+    void setMMatrix( double* m );
 
-    void setVertices(double *vertices, int n);
+    void setVMatrix( double* v );
 
-    void setTexCoord(double *texCoord);
+    void setNormalMatrix( double* normal );
 
-    void setNormal(double *normal);
+    void setVertices( double* vertices, int n );
 
-    void setTangentAndBitangent(double *tangent, double *bitangent);
+    void setTexCoord( double* texCoord );
 
-    void setEye(double *eye);
+    void setNormal( double* normal );
 
-    void setLight(float *lightPosition, float *lightDifuse,
-            float *lightSpecular, float *lightAmbient);
+    void setTangentAndBitangent( double* tangent, double* bitangent );
+
+    void setEye( double* eye );
+
+    void setLight( float* lightPosition, float* lightDifuse,
+                   float* lightSpecular, float* lightAmbient );
 
     void loadVariables();
 
 private:
 
 
-    std::string readFile(const char* name);
+    std::string readFile( const char* name );
 
-    float _mvpMatrix[16];
+    float _mvpMatrix[ 16 ];
 
-    float _mvMatrix[16];
+    float _mvMatrix[ 16 ];
 
-    float _mMatrix[16];
+    float _mMatrix[ 16 ];
 
-    float _vMatrix[16];
+    float _vMatrix[ 16 ];
 
-    float _normalMatrix[9];
+    float _normalMatrix[ 9 ];
 
-    double *_vertex;
+    double* _vertex;
     int _nVertices;
 
-    double *_texCoords;
-    double *_normal;
-    double *_tangent;
-    double *_bitangent;
+    double* _texCoords;
+    double* _normal;
+    double* _tangent;
+    double* _bitangent;
 
 
-    float _eye[3];
+    float _eye[ 3 ];
 
-    float _lightPosition[4];
-    float _lightDifuse[4];
-    float _lightSpecular[4];
-    float _lightAmbient[4];
-
-
+    float _lightPosition[ 4 ];
+    float _lightDifuse[ 4 ];
+    float _lightSpecular[ 4 ];
+    float _lightAmbient[ 4 ];
 };
 
-#endif	/* TRIANGLESHADER_H */
+#endif  /* TRIANGLESHADER_H */
 

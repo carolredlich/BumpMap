@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   Surface.h
  * Author: caroline
  *
@@ -6,56 +6,63 @@
  */
 
 #ifndef SURFACE_H
-#define	SURFACE_H
+#define SURFACE_H
 #include <vector>
 #include "GraphicsShader.h"
 #include "SphereShader.h"
 
-class Surface {
+class Surface
+{
 public:
 
     /**
-     * Constroi uma esfera 
+     * Constroi uma esfera
      * @param shader
      */
-    Surface(SphereShader *shader);
+    Surface( SphereShader* shader );
 
+    Surface( std::string fileName, SphereShader* shader );
 
     virtual ~Surface();
 
 
     // Array para guardar os vértices da malha
-    std::vector<double> _vertex;
+    std::vector< double > _vertex;
 
     // Array para guardar a normal dos vertices da malha
-    std::vector<double> _normal;
+    std::vector< double > _normal;
 
     // Array para guardar os vértices da malha
-    std::vector<double> _texCoord;
+    std::vector< double > _texCoord;
 
     // Array para guardar os vértices da malha
-    std::vector<double> _tangent;
+    std::vector< double > _tangent;
 
     // Array para guardar os vértices da malha
-    std::vector<double> _bitangent;
+    std::vector< double > _bitangent;
 
     //Array para guardar os triangulos da malha
-    std::vector<unsigned int> _triangles;
+    std::vector< unsigned int > _triangles;
 
     //Shader
-    SphereShader *_shader;
+    SphereShader* _shader;
 
 
 
 private:
 
-    int getVectorIndex(int i, int j, int n) 
+    void  generateSphereMesh();
+
+    void loadMesh( std::string fileName );
+    void generateTangentsAndBitangents();
+    void generateNormals();
+    void gererateTexCoords();
+
+    int getVectorIndex( int i, int j, int n )
     {
-        return j + i * (n + 1);
+        return j + i * ( n + 1 );
     }
-
-
 };
 
-#endif	/* SURFACE_H */
+#endif  /* SURFACE_H */
 

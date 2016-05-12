@@ -2,70 +2,48 @@
 
 uniform mat4 mvp;
 uniform mat4 mv;
-uniform mat4 m;
 uniform mat4 v;
-uniform mat3 mv3;
 uniform mat3 normalMatrix;
-uniform vec3 lightPosition;
-uniform vec3 eye;
+uniform vec3 lightPos_WS;
 
-in vec3 vtx;
-in vec3 normal;
-in vec2 texCoord;
-in vec3 tangent;
-in vec3 bitangent;
+in vec3 vertex_MS;
+in vec3 normal_MS;
+in vec2 texCoord_MS;
+in vec3 tangent_MS;
+in vec3 bitangent_MS;
 
 out vec3 lightDir_CS;
-out vec3 eyeDir_CS;
 
-smooth out vec3 light;
-smooth out vec2 texCoordFrag;
-smooth out vec3 eyePos;
+smooth out vec3 lightDir_TS;
+smooth out vec2 texCoordFrag_MS;
+smooth out vec3 eyeDir_TS;
+smooth out vec3 normalFrag_MS;
 
 
-vec3 computeVaryingLightDir(vec3 position, vec3 vLight)
+void main( void )
 {
-    //Converte o vertice para as coordenadas da camera.
-    vec4 vertex = vec4(position, 1.0f);
-    vec4 vPosition4 = mv * vertex;
-   
-    //Faz a correcao pelo valor de w.
-    vec3 vPosition3 = vPosition4.xyz / vPosition4.w;
-   
-    //Calcula o vetor da luy para a posicao do vertice.
-    return normalize(vLight - vPosition3);
-}
+    vec3 normal_CS = normalMatrix * normalize( normal_MS );
+    vec3 tangent_CS = normalMatrix * normalize( tangent_MS );
+    vec3 bitangent_CS = normalMatrix * normalize( bitangent_MS );
 
-void main(void)
-{   
-    
-    vec3 normalCameraspace = normalMatrix * normalize(normal);
-    vec3 tangentCameraspace = normalMatrix * normalize(tangent);
-    vec3 bitangentCameraspace = normalMatrix * normalize(bitangent);
+    mat3 TBN = transpose( mat3( tangent_CS, bitangent_CS, normal_CS ) );
 
-    mat3 TBN = transpose(mat3(
-    tangentCameraspace,
-    bitangentCameraspace,
-    normalCameraspace
-    ));
-  
-    
+    vec3 light_CS = ( v * vec4( lightPos_WS, 1 ) ).xyz;
+    vec3 vertex_CS = ( mv * vec4( vertex_MS, 1 ) ).xyz;
 
-    //light = computeVaryingLightDir( vtx, lightPosition );
-    vec3 L_CS = ( v * vec4( lightPosition, 1)).xyz;
-    vec3 vtx_CS = ( mv * vec4( vtx, 1)).xyz;
+    lightDir_CS = light_CS - vertex_CS;
+    vec3 eyeDir_CS = -vertex_CS;
 
-    lightDir_CS = L_CS - vtx_CS;
-    eyeDir_CS = -vtx_CS;
+    lightDir_TS = TBN * ( light_CS - vertex_CS );
+    //light = TBN * ( lightPos_WS - vertex_MS);
 
-    light = TBN * ( L_CS - vtx_CS );
-    //light = TBN * ( lightPosition - vtx);
-    
-    eyePos = TBN * (  -vtx_CS );
+    eyeDir_TS = TBN * ( -vertex_CS );
 
     //Passa as coordenadas de textura
-    texCoordFrag = texCoord;
- 
+    texCoordFrag_MS = texCoord_MS;
+
     //Projeta as coordendas do vertice.
-    gl_Position = mvp * vec4(vtx, 1.0f);
-}   
+    gl_Position = mvp * vec4( vertex_MS, 1.0f );
+}
+
+

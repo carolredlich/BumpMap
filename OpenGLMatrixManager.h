@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   OpenGLMA.h
  * Author: jcoelho
  *
@@ -6,7 +6,7 @@
  */
 
 #ifndef OPENGLMatrxManager_H
-#define	OPENGLMatrxManager_H
+#define OPENGLMatrxManager_H
 
 #include <stack>
 
@@ -19,27 +19,27 @@ public:
     /**
      * Construtor default.
      */
-    OpenGLMatrixManager( );
+    OpenGLMatrixManager();
 
     /**
      * Destrutor.
      */
-    ~OpenGLMatrixManager( );
+    ~OpenGLMatrixManager();
 
     /**
      * Empilha a matriz corrente e coloca uma identidade como corrente.
      */
-    void push( );
+    void push();
 
     /**
      * Retira a matriz corrente do topo.
      */
-    void pop( );
+    void pop();
 
     /**
      * Carrega a matriz identidade na matriz corrente.
      */
-    void loadIdentity( );
+    void loadIdentity();
 
     /**
      * Carrega a matriz m no lugar da matriz corrente.
@@ -107,7 +107,7 @@ public:
      * @param farVal - distancia maxima para o observador.
      */
     void ortho( double left, double right, double bottom, double top, double nearVal, double farVal );
-    
+
     /**
      * Define a pespectiva.
      * @param fovY - angulo de abertura do eixo y.
@@ -128,23 +128,23 @@ public:
      * @param mit - matriz inversa transposta.
      */
     void getMatrixInverseTransposed( double* mit );
-    
+
     /**
      * Calcula a matriz inversa e a retorna.
      * @return - matriz inversa da matriz corrente.
      */
     Math4f getMatrixInverse();
-    
+
     /**
      * Calcula o ponto transformado pela matriz corrente.
      * @param point - ponto a ser transformado.
      * @return - ponto resultante da transformacao.
      */
-   // Point3Dd operator*( const Point3Dd point );
+    // Point3Dd operator*( const Point3Dd point );
 
     /**
      * Retorna a matrix em double *.
-     * @return 
+     * @return
      */
     operator double*()
     {
@@ -153,28 +153,30 @@ public:
 
     /**
      * Retorna a matrix em double *.
-     * @return 
+     * @return
      */
     operator const double*() const
     {
         return ( const double* ) _currentMatrix;
     }
 
-    double* getMatrix( )
+    double* getMatrix()
     {
-        return _currentMatrix.getMatrix( );
+        return _currentMatrix.getMatrix();
     }
+
+
 private:
     /**
      * Pilha de matrizes
      */
-    std::stack<Math4f> _matrixStack;
+    std::stack< Math4f > _matrixStack;
 
     /**
      * Matriz corrente
      */
     Math4f _currentMatrix;
-    
+
 private:
     /**
      * Realiza o produto vetorial entre dois vetores.
@@ -183,8 +185,8 @@ private:
      * @param [out] - x, y, z - vetor de saida.
      */
     void computeCrossProduct( double x1, double y1, double z1,
-                          double x2, double y2, double z2,
-                          double &x, double &y, double &z );
+                              double x2, double y2, double z2,
+                              double& x, double& y, double& z );
 };
 
-#endif	/* OPENGLMatrxManager_H */
+#endif  /* OPENGLMatrxManager_H */

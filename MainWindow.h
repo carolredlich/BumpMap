@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   IupGLCanvasDummy.h
  * Author: jeferson
  *
@@ -6,7 +6,7 @@
  */
 
 #ifndef IUPGLCANVASDUMMY_H
-#define	IUPGLCANVASDUMMY_H
+#define IUPGLCANVASDUMMY_H
 
 
 
@@ -25,7 +25,8 @@ extern "C" {
 #include <iup/iup.h>
 #include <iup/iupgl.h>
 
-class MainWindow {
+class MainWindow
+{
 public:
     /**
      * Construtor default da classe.
@@ -51,14 +52,14 @@ public:
 
 
 private:
-    Ihandle *_dialog;
+    Ihandle* _dialog;
 
     // Matriz de model
     OpenGLMatrixManager _modelMatrix;
-    
+
     // Matriz de View
     OpenGLMatrixManager _viewMatrix;
-    
+
     // Matriz de View
     OpenGLMatrixManager _modelViewMatrix;
 
@@ -66,11 +67,11 @@ private:
     OpenGLMatrixManager _projectionMatrix;
 
     //Superficies a serem desenhadas
-    std::vector<Surface> _surface;
+    std::vector< Surface > _surface;
 
     //Texturas
-    Image *_textureImg[2];
-    GLuint _textureId[2];
+    Image* _textureImg[ 2 ];
+    GLuint _textureId[ 2 ];
 
 
 private:
@@ -95,9 +96,8 @@ private:
      * @param width - nova larguda do canvas.
      * @param height - nova altura do canvas.
      */
-    void resizeCanvas(int width, int height);
-    
-    void generateTangentsAndBitangents();
+    void resizeCanvas( int width, int height );
+
 
 
 private:
@@ -106,14 +106,14 @@ private:
      * @param button - ihandle do botao de sair.
      * @return - retorna IUP_CLOSE para que a janela seja fechada.
      */
-    static int exitButtonCallback(Ihandle *button);
+    static int exitButtonCallback( Ihandle* button );
 
     /**
      * Callback responsavel por receber evento de redesenho do canvas.
      * @param canvas - ponteiro para o canvas.
      * @return  - IUP_DEFAULT.
      */
-    static int actionCanvasCallback(Ihandle *canvas);
+    static int actionCanvasCallback( Ihandle* canvas );
 
     /**
      * Callback responsavel por receber eventos do whell do mouse no canvas para
@@ -122,12 +122,12 @@ private:
      * @param delta - vale -1 ou 1 e indica a direcao da rotacao do botao whell.
      * @param x - posicao x do mouse na tela.
      * @param y - posicao y do mouse na tela.
-     * @param status - status dos botoes do mouse e certas teclas do teclado no 
+     * @param status - status dos botoes do mouse e certas teclas do teclado no
      * momento que o evento foi gerado.
      * @return - IUP_DEFAULT.
      */
-    static int wheelCanvasCallback(Ihandle *canvas, float delta, int x,
-            int y, char *status);
+    static int wheelCanvasCallback( Ihandle* canvas, float delta, int x,
+                                    int y, char* status );
 
     /**
      * Callback responsavel por receber eventos de resize do canvas.
@@ -136,7 +136,7 @@ private:
      * @param heigth - nova altura, em pixeis, da janela.
      * @return - IUP_DEFAULT.
      */
-    static int resizeCanvasCallback(Ihandle *canvas, int width, int height);
+    static int resizeCanvasCallback( Ihandle* canvas, int width, int height );
 
     /**
      * Callback responsavel por receber eventos de teclado do canvas.
@@ -146,16 +146,13 @@ private:
      * contrario.
      * @param x - posicao x do mouse na tela.
      * @param y - posicao y do mouse na tela.
-     * @param status - status dos botoes do mouse e certas teclas do teclado no 
+     * @param status - status dos botoes do mouse e certas teclas do teclado no
      * momento que o evento foi gerado.
-     * @return - IUP_DEFAULT. 
+     * @return - IUP_DEFAULT.
      */
-    static int buttonCanvasCallback(Ihandle* canvas, int button, int pressed,
-            int x, int y, char* status);
-
-
-
+    static int buttonCanvasCallback( Ihandle* canvas, int button, int pressed,
+                                     int x, int y, char* status );
 };
 
-#endif	/* IUPGLCANVASDUMMY_H */
+#endif  /* IUPGLCANVASDUMMY_H */
 
